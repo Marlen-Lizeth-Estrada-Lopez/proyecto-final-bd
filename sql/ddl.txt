@@ -1,0 +1,169 @@
+CREATE TABLE ASOCIADO (
+    num_ced      INT          PRIMARY KEY,
+    prim_nom     VARCHAR(50)  NOT NULL,
+    seg_nom      VARCHAR(50),
+    prim_ape     VARCHAR(50)  NOT NULL,
+    seg_ape      VARCHAR(50),
+    fecha_nto    DATE         NOT NULL,
+    estado       VARCHAR(25)  NOT NULL, -- 'activo', 'suspendido', 'retirado'
+    correo       VARCHAR(50),
+    tel          VARCHAR(20),
+    muni         VARCHAR(50),
+    dir          VARCHAR(200),
+    fecha_afi    DATE         NOT NULL
+);
+
+CREATE TABLE FUNDADORES (
+    num_ced      INT          PRIMARY KEY,
+    num_acta     INT          NOT NULL,
+    anio_vec     INT          NOT NULL,
+    descripcion  VARCHAR(200),
+    FOREIGN KEY (num_ced) REFERENCES ASOCIADO(num_ced)
+);
+
+CREATE TABLE BENEFICIARIO (
+    num_doc      INT          PRIMARY KEY,
+    num_ced      INT          NOT NULL,
+    prim_nom     VARCHAR(50)  NOT NULL,
+    seg_nom      VARCHAR(50),
+    prim_ape     VARCHAR(50)  NOT NULL,
+    seg_ape      VARCHAR(50),
+    paren        VARCHAR(50)  NOT NULL, -- 'conyuge', 'hijo/a', 'padre', 'madre', 'hermano/a', 'otro'
+    porcen       DECIMAL(5,2) NOT NULL,
+    tel          VARCHAR(20),
+    FOREIGN KEY (num_ced) REFERENCES ASOCIADO(num_ced)
+);
+
+CREATE TABLE AGENCIA (
+    cod          INT          PRIMARY KEY,
+    nombre       VARCHAR(50)  NOT NULL,
+    munic        VARCHAR(50)  NOT NULL,
+    tel          VARCHAR(20),
+    fecha_ape    DATE         NOT NULL,
+    dir          VARCHAR(200)
+);
+
+CREATE TABLE EMPLEADO (
+    id            INT          PRIMARY KEY,
+    prim_nom      VARCHAR(50)  NOT NULL,
+    seg_nom       VARCHAR(50),
+    prim_ape      VARCHAR(50)  NOT NULL,
+    seg_ape       VARCHAR(50),
+    cargo         VARCHAR(50)  NOT NULL,
+    fecha_ingre   DATE         NOT NULL,
+    sal_base      DECIMAL(10,2),
+    correo_corp   VARCHAR(50),
+    est_lab       VARCHAR(25)  NOT NULL, 
+    cod_agencia   INT          NOT NULL,
+    supervisor_id INT,                   
+    FOREIGN KEY (cod_agencia)   REFERENCES AGENCIA(cod),
+    FOREIGN KEY (supervisor_id) REFERENCES EMPLEADO(id)
+);
+
+CREATE TABLE VENTANILLA (
+    id INT PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES EMPLEADO(id)
+);
+
+CREATE TABLE PROMOTOR (
+    id INT PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES EMPLEADO(id)
+);
+
+CREATE TABLE DIRECTOR (
+    id INT PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES EMPLEADO(id)
+);
+
+CREATE TABLE LINEA_CREDITO (
+    cod_linea    INT          PRIMARY KEY,
+    nombre_linea VARCHAR(50)  NOT NULL, 
+    tasa_int     NUMERIC(5,2) NOT NULL
+);
+
+CREATE TABLE CREDITO (
+    num_rad        INT          PRIMARY KEY,
+    valor_sol      NUMERIC(12,2) NOT NULL,
+    valor_aprob    NUMERIC(12,2),
+    estado         VARCHAR(25)  NOT NULL, 
+    fecha_prim_ven DATE,
+    fecha_apro     DATE,
+    plazo          INT          NOT NULL,
+    ced_asociado   INT          NOT NULL,
+    cod_linea      INT          NOT NULL,
+    cod_agencia    INT          NOT NULL, 
+    FOREIGN KEY (ced_asociado) REFERENCES ASOCIADO(num_ced),
+    FOREIGN KEY (cod_linea)    REFERENCES LINEA_CREDITO(cod_linea),
+    FOREIGN KEY (cod_agencia)  REFERENCES AGENCIA(cod)
+);
+
+CREATE TABLE CODEUDOR (
+    num_credito  INT  NOT NULL,
+    ced_asociado INT  NOT NULL,
+    fecha_fir    DATE NOT NULL,
+    PRIMARY KEY (num_credito, ced_asociado),
+    FOREIGN KEY (num_credito)  REFERENCES CREDITO(num_rad),
+    FOREIGN KEY (ced_asociado) REFERENCES ASOCIADO(num_ced)
+);
+
+CREATE TABLE CUENTAS (
+    num_cuent    INT       PRIMARY KEY, 
+    estado       VARCHAR(25)  NOT NULL,  
+    fecha_ape    DATE         NOT NULL,
+    ced_asociado INT          NOT NULL,
+    cod_agencia  INT          NOT NULL,
+    FOREIGN KEY (ced_asociado) REFERENCES ASOCIADO(num_ced),
+    FOREIGN KEY (cod_agencia)  REFERENCES AGENCIA(cod)
+);
+
+CREATE TABLE MOVIMIENTOS (
+    num_tran        INT          PRIMARY KEY,
+    tipo            VARCHAR(25)  NOT NULL, 
+    hora            TIME         NOT NULL,
+    fecha           DATE         NOT NULL,
+    canal           VARCHAR(25)  NOT NULL, 
+    valor           NUMERIC(12,2) NOT NULL,
+    num_cue         BIGINT       NOT NULL,
+    num_cue_destino BIGINT,                
+    FOREIGN KEY (num_cue)         REFERENCES CUENTAS(num_cuent),
+    FOREIGN KEY (num_cue_destino) REFERENCES CUENTAS(num_cuent)
+);
+
+CREATE TABLE PAGO (
+    cod_pago SERIAL PRIMARY KEY,  
+    estado VARCHAR(25) NOT NULL,
+    num_cuota INT NOT NULL,
+    fecha_pago DATE,
+    valor_pago NUMERIC(12,2),
+    num_credito INT NOT NULL,
+    cod_agencia INT NOT NULL,
+    FOREIGN KEY (num_credito) REFERENCES CREDITO(num_rad),
+    FOREIGN KEY (cod_agencia) REFERENCES AGENCIA(cod)
+);
+
+CREATE TABLE ASESORIA (
+    id_emp       INT  NOT NULL,
+    id_asociado  INT  NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    PRIMARY KEY (id_emp, id_asociado, fecha_inicio),
+    FOREIGN KEY (id_emp)      REFERENCES EMPLEADO(id),
+    FOREIGN KEY (id_asociado) REFERENCES ASOCIADO(num_ced)
+);
+
+CREATE TABLE USUARIO (
+    id          SERIAL PRIMARY KEY,
+    usuario     VARCHAR(50) UNIQUE NOT NULL,
+    contrasena  VARCHAR(100) NOT NULL,
+    rol         VARCHAR(25) NOT NULL, 
+    id_empleado INT,
+    id_asociado INT,
+    FOREIGN KEY (id_empleado) REFERENCES EMPLEADO(id),
+    FOREIGN KEY (id_asociado) REFERENCES ASOCIADO(num_ced)
+);
+
+CREATE TABLE BITACORA (
+    id          SERIAL PRIMARY KEY,
+    usuario_id  INT,
+    operacion   VARCHAR(100),
+    fecha_hora  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Bitácora</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL (simplificada) -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <p style="font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Vista Administrador</p>
+      <a href="/admin" 
+         style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">
+         ← Volver
+      </a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 20px 0;">Bitácora de Accesos</h2>
+
+      <div style="border: 1px solid #ccc; border-radius: 6px; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <thead>
+            <tr style="background: #d8d8d8;">
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">ID</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Usuario</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Operación</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Fecha/Hora</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in registros %}
+            <tr style="border-top: 1px solid #eee; background: {{ '#f9f9f9' if loop.index is odd else 'white' }};">
+              <td style="padding: 8px 12px;">{{ r[0] }}</td>
+              <td style="padding: 8px 12px;">{{ r[1] }}</td>
+              <td style="padding: 8px 12px;">{{ r[2] }}</td>
+              <td style="padding: 8px 12px;">{{ r[3] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="4" style="padding: 16px; text-align: center; color: #aaa; font-size: 13px;">
+                No hay registros en la bitácora.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

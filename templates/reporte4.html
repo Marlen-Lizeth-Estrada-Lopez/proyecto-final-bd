@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte 4 - Mora</title>
+</head>    
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <a href="{{ '/admin' if session.get('rol') == 'administrador' else '/asesor' }}"style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">← Volver</a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 20px 0;">Asociados en Mora</h2>
+
+      <div style="border: 1px solid #ccc; border-radius: 6px; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <thead>
+            <tr style="background: #d8d8d8;">
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Cédula</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Asociado</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Crédito</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Cuota</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Fecha Vencimiento</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Días Mora</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Asesor</th>
+            </tr>
+            </thead>
+          <tbody>
+            {% for m in mora %}
+            <tr style="border-top: 1px solid #eee; background: {{ '#f9f9f9' if loop.index is odd else 'white' }};">
+              <td style="padding: 8px 12px;">{{ m[0] }}</td>
+              <td style="padding: 8px 12px;">{{ m[1] }}</td>
+              <td style="padding: 8px 12px;">{{ m[2] }}</td>
+              <td style="padding: 8px 12px;">{{ m[3] }}</td>
+              <td style="padding: 8px 12px;">{{ m[4] }}</td>
+              <td style="padding: 8px 12px;">{{ m[5] }}</td>
+              <td style="padding: 8px 12px;">{{ m[6] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Login</title>
+</head>
+<body>
+
+    <div style="
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ">
+
+    <div style="
+        background: #e8e8e8;
+        border: 2px solid #000000;
+        border-radius: 8px;
+        padding: 29px 20px;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+    ">
+
+        <h1 style="background-color: #cc0000; color: white; text-align: center;">
+        COOVALLUNA Ltda.
+        </h1>
+
+        <form action="/login" method="POST" style="display: flex; flex-direction: column;">
+
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+        <label style="min-width: 90px;">Usuario:</label>
+        <input type="text" name="usuario" />
+        </div>
+
+        <div style="display: flex; align-items: center; margin-bottom: 28px;">
+        <label style="min-width: 90px;">Contraseña:</label>
+        <input type="password" name="contrasena" />
+        </div>
+
+        <button type="submit" style="background-color: #3a9ae8;color: white; font-size: 17px; padding: 14px 0; margin-bottom: 16px; border-radius: 20px;">
+        Ingresar
+        </button>
+
+    </form>
+
+    </div>
+
+    </div>
+
+</body>
+</html>

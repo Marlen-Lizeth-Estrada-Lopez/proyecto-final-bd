@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Mis Créditos</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <p style="font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Vista Asociado (autoservicio)</p>
+      <a href="/asociado"               style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mi perfil</a>
+      <a href="/asociado/cuentas"       style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mis cuentas</a>
+      <a href="/asociado/creditos"      style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mis créditos</a>
+      <a href="/asociado/actualizacion" style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Actualización de datos</a>
+      <a href="/logout"                 style="display: block; text-align: center; margin-top: auto; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Cerrar sesión</a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 16px 0;">Mis créditos</h2>
+
+      <!-- Tarjetas de créditos -->
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+        {% for c in creditos %}
+        <div style="background: #d8d8d8; border: 1px solid #bbb; border-radius: 6px; padding: 14px 18px; min-width: 200px; font-size: 14px; display: flex; flex-direction: column; gap: 6px;">
+          <p style="margin: 0;"><strong>N° Crédito:</strong> {{ c[0] }}</p>
+          <p style="margin: 0;"><strong>Línea:</strong> {{ c[1] }}</p>
+          <p style="margin: 0;"><strong>Valor aprobado:</strong> ${{ c[2] if c[2] else '---' }}</p>
+          <p style="margin: 0;"><strong>Plazo:</strong> {{ c[3] }} meses</p>
+          <p style="margin: 0;"><strong>Estado:</strong> {{ c[4] }}</p>
+          <p style="margin: 0;"><strong>Próximo vencimiento:</strong> {{ c[5] if c[5] else '---' }}</p>
+          <p style="margin: 0;"><strong>Cuotas pagadas:</strong> {{ c[6] }}</p>
+        </div>
+        {% else %}
+        <div style="background: #d8d8d8; border: 1px solid #bbb; border-radius: 6px; padding: 14px 18px; min-width: 200px; font-size: 14px; color: #666; text-align: center;">
+          No tienes créditos activos.
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

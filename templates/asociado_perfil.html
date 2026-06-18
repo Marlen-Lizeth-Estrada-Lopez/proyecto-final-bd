@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Mi Perfil</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <p style="font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Vista Asociado (autoservicio)</p>
+      <a href="/asociado"              style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mi perfil</a>
+      <a href="/asociado/cuentas"      style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mis cuentas</a>
+      <a href="/asociado/creditos"     style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mis créditos</a>
+      <a href="/asociado/actualizacion" style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Actualización de datos</a>
+      <a href="/logout"                style="display: block; text-align: center; margin-top: auto; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Cerrar sesión</a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      {% if perfil %}
+
+      <h2 style="margin: 0 0 16px 0;">Mi perfil</h2>
+
+      <!-- Tarjeta de datos -->
+      <div style="background: white; border: 1px solid #ccc; border-radius: 6px; padding: 20px 24px; margin-bottom: 16px;">
+        <div style="display: flex; gap: 60px;">
+
+          <!-- Columna izquierda -->
+          <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+                <p><strong>Nombres:</strong> {{ perfil[1] }}</p>
+                <p><strong>Apellidos:</strong> {{ perfil[2] }}</p>
+                <p><strong>Cédula:</strong> {{ perfil[3] }}</p>
+                <p><strong>Teléfono:</strong> {{ perfil[5] }}</p>
+                <p><strong>Dirección:</strong> {{ perfil[6] }}</p>
+                <p><strong>Municipio:</strong> {{ perfil[7] }}</p>
+          </div>
+
+          <!-- Columna derecha -->
+          <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+            <p style="margin: 0;"><strong>Correo electrónico:</strong> {{ perfil[4] }}</p>
+            <p style="margin: 0;"><strong>Fecha de afiliación:</strong> {{ perfil[8] }}</p>
+            <p style="margin: 0;"><strong>Estado:</strong> {{ perfil[9] }}</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Aviso actualización -->
+      <p style="font-size: 13px; color: #444; margin-bottom: 20px;">
+        Si desea actualizar alguno sus datos, llene el formulario que se encuentra en la pestaña de "Actualización de datos" para realizar la solicitud
+      </p>
+
+      <!-- Beneficiarios -->
+      <h2 style="margin: 0 0 10px 0; font-size: 18px;">Mis beneficiarios</h2>
+
+      <div style="border: 1px solid #ccc; border-radius: 6px; overflow: hidden; max-height: 200px; overflow-y: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <thead>
+            <tr style="background: #d8d8d8;">
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Nombre</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Parentesco</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Porcentaje</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for b in beneficiarios %}
+            <tr style="border-top: 1px solid #eee; background: {{ '#f9f9f9' if loop.index is odd else 'white' }};">
+              <td style="padding: 8px 12px;">{{ b[0] }}</td>
+              <td style="padding: 8px 12px;">{{ b[1] }}</td>
+              <td style="padding: 8px 12px;">{{ b[2] }}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      {% endif %}
+
+    </div>
+  </div>
+
+</body>
+</html>

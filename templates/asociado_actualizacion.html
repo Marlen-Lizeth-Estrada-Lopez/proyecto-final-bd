@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Actualizar Datos</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <p style="font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Vista Asociado (autoservicio)</p>
+      <a href="/asociado"               style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mi perfil</a>
+      <a href="/asociado/cuentas"       style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mis cuentas</a>
+      <a href="/asociado/creditos"      style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mis créditos</a>
+      <a href="/asociado/actualizacion" style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Actualización de datos</a>
+      <a href="/logout"                 style="display: block; text-align: center; margin-top: auto; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Cerrar sesión</a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 16px 0;">Actualización de Datos de Contacto</h2>
+
+      <!-- Mensaje de confirmación -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div style="padding: 12px 16px; margin-bottom: 16px; background: {{ '#d4edda' if category == 'success' else '#f8d7da' }}; border: 1px solid {{ '#c3e6cb' if category == 'success' else '#f5c6cb' }}; border-radius: 6px; color: {{ '#155724' if category == 'success' else '#721c24' }}; font-size: 14px;">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <!-- Formulario -->
+      <div style="background: white; border: 1px solid #ccc; border-radius: 6px; padding: 20px 24px;">
+
+        <p style="font-size: 13px; color: #555; margin-top: 0;">
+          <em>Deja en blanco los campos que no deseas actualizar.</em>
+        </p>
+
+        <form method="POST" style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Nuevo teléfono</label>
+            <input type="text" name="tel" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Nuevo correo electrónico</label>
+            <input type="email" name="correo" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Nueva dirección</label>
+            <input type="text" name="dir" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 8px;">
+            <button type="submit" style="background-color: #3a9ae8; color: white; border: none; border-radius: 6px; padding: 8px 24px; font-size: 13px; cursor: pointer;">
+              Actualizar
+            </button>
+            <a href="/asociado" style="background-color: #ddd; color: black; border: none; border-radius: 6px; padding: 8px 24px; font-size: 13px; text-decoration: none; display: inline-block;">
+              Cancelar
+            </a>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

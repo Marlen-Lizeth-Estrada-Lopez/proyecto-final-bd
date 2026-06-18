@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Empleados</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <p style="font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Vista Administrador</p>
+      <a href="/admin"              style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Inicio</a>
+      <a href="/admin/agencias"     style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Agencias</a>
+      <a href="/admin/empleados"    style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Empleados</a>
+      <a href="/admin/usuarios"     style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Usuarios</a>
+      <a href="/asociados/nuevo"      style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Agregar asociado</a>
+      <a href="/beneficiarios/nuevo"      style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Agregar beneficiario</a>
+      <a href="/cuentas"      style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Cuentas</a>
+      <a href="/creditos"      style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Créditos</a>
+      <a href="/admin/bitacora"     style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Bitácora</a>
+      <a href="/logout"             style="display: block; text-align: center; margin-top: auto; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Cerrar sesión</a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin: 0;">Gestión de Empleados</h2>
+        <a href="/admin/empleados/nuevo" style="background-color: #3a9ae8; color: white; border-radius: 6px; padding: 8px 16px; font-size: 13px; text-decoration: none;">+ Nuevo empleado</a>
+      </div>
+
+      <div style="border: 1px solid #ccc; border-radius: 6px; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <thead>
+            <tr style="background: #d8d8d8;">
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">ID</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Nombre</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Cargo</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Estado</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Agencia</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Supervisor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for e in empleados %}
+            <tr style="border-top: 1px solid #eee; background: {{ '#f9f9f9' if loop.index is odd else 'white' }};">
+              <td style="padding: 8px 12px;">{{ e[0] }}</td>
+              <td style="padding: 8px 12px;">{{ e[1] }}</td>
+              <td style="padding: 8px 12px;">{{ e[2] }}</td>
+              <td style="padding: 8px 12px;">{{ e[3] }}</td>
+              <td style="padding: 8px 12px;">{{ e[4] }}</td>
+              <td style="padding: 8px 12px;">{{ e[5] if e[5] else '-' }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

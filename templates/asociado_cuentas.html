@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Mis Cuentas</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <p style="font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Vista Asociado (autoservicio)</p>
+      <a href="/asociado"               style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mi perfil</a>
+      <a href="/asociado/cuentas"       style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mis cuentas</a>
+      <a href="/asociado/creditos"      style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Mis créditos</a>
+      <a href="/asociado/actualizacion" style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Actualización de datos</a>
+      <a href="/logout"                 style="display: block; text-align: center; margin-top: auto; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">Cerrar sesión</a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 16px 0;">Mis cuentas de ahorro</h2>
+
+      <!-- Tarjetas de cuentas -->
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+        {% for c in cuentas %}
+        <div style="background: #d8d8d8; border: 1px solid #bbb; border-radius: 6px; padding: 14px 18px; min-width: 180px; font-size: 14px; display: flex; flex-direction: column; gap: 6px;">
+          <p style="margin: 0;"><strong>Número de cuenta:</strong> {{ c[0] }}</p>
+          <p style="margin: 0;"><strong>Saldo:</strong> ${{ c[4] }}</p>
+          <p style="margin: 0;"><strong>Estado:</strong> {{ c[1] }}</p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Sección consultar extracto -->
+      <div style="background: white; border: 1px solid #ccc; border-radius: 6px; padding: 20px 24px; margin-bottom: 24px;">
+
+        <h3 style="text-align: center; margin: 0 0 16px 0; font-size: 15px;">Consultar extracto</h3>
+
+        <form method="POST" action="/asociado/cuentas" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; margin-bottom: 16px;">
+
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+            <label>Número de cuenta:</label>
+            <select name="num_cue" style="padding: 5px 8px; border: 1px solid #aaa; border-radius: 4px; width: 140px;">
+              {% for c in cuentas %}
+              <option value="{{ c[0] }}" {% if cuenta_seleccionada == c[0]|string %}selected{% endif %}>{{ c[0] }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+            <label>Fecha inicio:</label>
+            <input type="date" name="fecha_ini" style="padding: 5px 8px; border: 1px solid #aaa; border-radius: 4px;" value="{{ fecha_ini }}" />
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+            <label>Fecha fin:</label>
+            <input type="date" name="fecha_fin" style="padding: 5px 8px; border: 1px solid #aaa; border-radius: 4px;" value="{{ fecha_fin }}" />
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+            <label>Tipo de movimiento:</label>
+            <select name="tipo" style="padding: 5px 8px; border: 1px solid #aaa; border-radius: 4px;">
+              <option value="">Todos</option>
+              <option value="deposito" {% if tipo_seleccionado == 'deposito' %}selected{% endif %}>Depósito</option>
+              <option value="retiro" {% if tipo_seleccionado == 'retiro' %}selected{% endif %}>Retiro</option>
+              <option value="transferencia entrante" {% if tipo_seleccionado == 'transferencia entrante' %}selected{% endif %}>Transferencia entrante</option>
+              <option value="transferencia saliente" {% if tipo_seleccionado == 'transferencia saliente' %}selected{% endif %}>Transferencia saliente</option>
+            </select>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+            <label>Tipo de canal:</label>
+            <select name="canal" style="padding: 5px 8px; border: 1px solid #aaa; border-radius: 4px;">
+              <option value="">Todos</option>
+              <option value="presencial" {% if canal_seleccionado == 'presencial' %}selected{% endif %}>Presencial</option>
+              <option value="aplicacion movil" {% if canal_seleccionado == 'aplicacion movil' %}selected{% endif %}>Aplicación móvil</option>
+              <option value="cajero automatico" {% if canal_seleccionado == 'cajero automatico' %}selected{% endif %}>Cajero automático</option>
+            </select>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; justify-content: flex-end;">
+            <button type="submit" style="background-color: #3a9ae8; color: white; border: none; border-radius: 6px; padding: 6px 24px; font-size: 13px; cursor: pointer;">
+              Consultar
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+      <!-- Resultados -->
+      {% if movimientos %}
+      <h3 style="margin: 0 0 10px 0; font-size: 15px;">Resultados del extracto:</h3>
+
+      <div style="border: 1px solid #ccc; border-radius: 6px; overflow: hidden; margin-bottom: 8px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <thead>
+            <tr style="background: #d8d8d8;">
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">N° Transacción</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Fecha</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Hora</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Tipo</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Canal</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for m in movimientos %}
+            <tr style="border-top: 1px solid #eee; background: {{ '#f9f9f9' if loop.index is odd else 'white' }};">
+              <td style="padding: 8px 12px;">{{ m[0] }}</td>
+              <td style="padding: 8px 12px;">{{ m[1] }}</td>
+              <td style="padding: 8px 12px;">{{ m[2] }}</td>
+              <td style="padding: 8px 12px;">{{ m[3] }}</td>
+              <td style="padding: 8px 12px;">{{ m[4] }}</td>
+              <td style="padding: 8px 12px;">${{ m[5] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <p style="text-align: right; font-size: 13px; margin: 0 0 16px 0;">
+        <strong>Saldo calculado: ${{ saldo_extracto }}</strong>
+      </p>
+
+      <!-- Botón descarga CSV -->
+      <div style="display: flex; gap: 12px;">
+        <a href="/asociado/extracto/csv?num_cue={{ cuenta_seleccionada }}&fecha_ini={{ fecha_ini }}&fecha_fin={{ fecha_fin }}&tipo={{ tipo_seleccionado }}&canal={{ canal_seleccionado }}"
+           style="background-color: #3a9ae8; color: white; border: none; border-radius: 6px; padding: 10px 20px; font-size: 13px; text-decoration: none; display: inline-block;">
+           Descargar extracto CSV
+        </a>
+      </div>
+
+      {% else %}
+        {% if request.method == 'POST' %}
+          <p style="text-align: center; color: #888; font-size: 14px;">No hay movimientos para los filtros seleccionados.</p>
+        {% else %}
+          <p style="text-align: center; color: #aaa; font-size: 14px;">Selecciona una cuenta y un rango de fechas para ver el extracto.</p>
+        {% endif %}
+      {% endif %}
+
+    </div>
+  </div>
+
+</body>
+</html>

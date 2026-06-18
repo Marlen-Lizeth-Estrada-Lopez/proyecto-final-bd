@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Nuevo Beneficiario</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <a href="{{ '/admin' if session.get('rol') == 'administrador' else '/asesor' }}" 
+         style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">
+         ← Volver
+      </a>
+      <a href="/reporte1" 
+         style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">
+         Listado de asociados
+      </a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 20px 0;">Registrar Beneficiario</h2>
+
+      <div style="background: white; border: 1px solid #ccc; border-radius: 6px; padding: 20px 24px;">
+
+        <form method="POST">
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">N° Documento beneficiario</label>
+            <input type="number" name="num_doc" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Cédula del asociado</label>
+            <input type="number" name="num_ced" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Primer nombre</label>
+            <input type="text" name="prim_nom" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Segundo nombre</label>
+            <input type="text" name="seg_nom" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Primer apellido</label>
+            <input type="text" name="prim_ape" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Segundo apellido</label>
+            <input type="text" name="seg_ape" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Parentesco</label>
+            <select name="paren" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              <option>conyuge</option>
+              <option>hijo/a</option>
+              <option>padre</option>
+              <option>madre</option>
+              <option>hermano/a</option>
+              <option>otro</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Porcentaje de participación</label>
+            <input type="number" step="0.01" name="porcen" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Teléfono</label>
+            <input type="text" name="tel" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 8px;">
+            <button type="submit" style="background-color: #3a9ae8; color: white; border: none; border-radius: 6px; padding: 8px 24px; font-size: 13px; cursor: pointer;">
+              Registrar beneficiario
+            </button>
+            <a href="/reporte1" style="background-color: #ddd; color: black; border: none; border-radius: 6px; padding: 8px 24px; font-size: 13px; text-decoration: none; display: inline-block;">
+              Cancelar
+            </a>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

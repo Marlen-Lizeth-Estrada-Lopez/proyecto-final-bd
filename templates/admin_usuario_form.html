@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Nuevo Usuario</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL (simplificada) -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <p style="font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Vista Administrador</p>
+      <a href="/admin/usuarios" 
+         style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">
+         ← Volver
+      </a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 20px 0;">Nuevo Usuario</h2>
+
+      <div style="background: white; border: 1px solid #ccc; border-radius: 6px; padding: 20px 24px;">
+
+        <form method="POST">
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Usuario</label>
+            <input type="text" name="usuario" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Contraseña</label>
+            <input type="password" name="contrasena" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Rol</label>
+            <select name="rol" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              <option value="administrador">Administrador</option>
+              <option value="asesor">Asesor</option>
+              <option value="asociado">Asociado</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">ID Empleado (si es asesor)</label>
+            <input type="number" name="id_empleado" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Cédula Asociado (si es asociado)</label>
+            <input type="number" name="id_asociado" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 8px;">
+            <button type="submit" style="background-color: #3a9ae8; color: white; border: none; border-radius: 6px; padding: 8px 24px; font-size: 13px; cursor: pointer;">
+              Crear usuario
+            </button>
+            <a href="/admin/usuarios" style="background-color: #ddd; color: black; border: none; border-radius: 6px; padding: 8px 24px; font-size: 13px; text-decoration: none; display: inline-block;">
+              Cancelar
+            </a>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Nueva Cuenta</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <a href="{{ '/admin' if session.get('rol') == 'administrador' else '/asesor' }}" 
+         style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">
+         ← Volver
+      </a>
+      <!-- Puedes agregar más enlaces si quieres, pero para el formulario solo necesitamos Volver -->
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 20px 0;">Abrir Nueva Cuenta de Ahorro</h2>
+
+      <form method="POST" action="/cuentas/nueva" style="max-width: 500px;">
+        <div style="margin-bottom: 16px;">
+          <label style="font-weight: bold; font-size: 14px;">N° Cuenta:</label><br>
+          <input type="number" name="num_cuent" required 
+                 style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="font-weight: bold; font-size: 14px;">Asociado:</label><br>
+          <select name="ced_asociado" required 
+                  style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+            {% for a in asociados %}
+            <option value="{{ a[0] }}">{{ a[0] }} - {{ a[1] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="font-weight: bold; font-size: 14px;">Agencia:</label><br>
+          <select name="cod_agencia" 
+                  {% if session.get('rol') == 'asesor' %}disabled{% endif %}
+                  style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; 
+                         {% if session.get('rol') == 'asesor' %}background: #e9ecef;{% endif %}">
+            {% for ag in agencias %}
+            <option value="{{ ag[0] }}" {% if agencia_asesor == ag[0] %}selected{% endif %}>{{ ag[1] }}</option>
+            {% endfor %}
+          </select>
+          {% if session.get('rol') == 'asesor' %}
+            <input type="hidden" name="cod_agencia" value="{{ agencia_asesor }}">
+          {% endif %}
+          <span style="font-size: 12px; color: #555;">
+            {% if session.get('rol') == 'asesor' %}
+              (La agencia se asigna automáticamente según tu perfil)
+            {% endif %}
+          </span>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="font-weight: bold; font-size: 14px;">Fecha apertura:</label><br>
+          <input type="date" name="fecha_ape" required 
+                 style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+        </div>
+
+        <button type="submit" 
+                style="background: #3a9ae8; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-size: 14px; cursor: pointer;">
+          Abrir cuenta
+        </button>
+        <a href="/cuentas" style="margin-left: 12px; font-size: 14px; color: #555; text-decoration: none;">Cancelar</a>
+      </form>
+
+    </div>
+  </div>
+
+</body>
+</html>

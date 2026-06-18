@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COOVALLUNA - Nuevo Asociado</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <a href="{{ '/admin' if session.get('rol') == 'administrador' else '/asesor' }}" 
+         style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">
+         ← Volver
+      </a>
+      <a href="/reporte1" 
+         style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">
+         Listado de asociados
+      </a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 20px 0;">Registrar Nuevo Asociado</h2>
+
+      <div style="background: white; border: 1px solid #ccc; border-radius: 6px; padding: 20px 24px;">
+
+        {% if error %}
+          <p style="color: red; background: #ffe6e6; padding: 10px; border-radius: 4px;">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+            <!-- Columna izquierda -->
+            <div>
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Cédula</label>
+                <input type="number" name="num_ced" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Primer nombre</label>
+                <input type="text" name="prim_nom" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Segundo nombre</label>
+                <input type="text" name="seg_nom" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Primer apellido</label>
+                <input type="text" name="prim_ape" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Segundo apellido</label>
+                <input type="text" name="seg_ape" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Fecha de nacimiento</label>
+                <input type="date" name="fecha_nto" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+            </div>
+
+            <!-- Columna derecha -->
+            <div>
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Correo electrónico</label>
+                <input type="email" name="correo" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Teléfono</label>
+                <input type="text" name="tel" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Municipio</label>
+                <input type="text" name="muni" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Dirección</label>
+                <input type="text" name="dir" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">Fecha de afiliación</label>
+                <input type="date" name="fecha_afi" required style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px;">
+                  <input type="checkbox" name="es_fundador" id="check_fundador"
+                         onclick="document.getElementById('datos_fundador').style.display = this.checked ? 'block' : 'none'">
+                  Asociado fundador
+                </label>
+                <div id="datos_fundador" style="display:none; margin-top: 10px; border-top: 1px solid #ddd; padding-top: 10px;">
+                  <div style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px;">N° Acta fundacional</label>
+                    <input type="number" name="num_acta" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+                  </div>
+                  <div style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px;">Año de reconocimiento</label>
+                    <input type="number" name="anio_vec" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+                  </div>
+                  <div style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px;">Descripción de beneficios</label>
+                    <textarea name="descripcion" rows="3" style="width: 100%; padding: 6px 10px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div> <!-- Fin grid -->
+
+          <div style="display: flex; gap: 12px; margin-top: 8px;">
+            <button type="submit" style="background-color: #3a9ae8; color: white; border: none; border-radius: 6px; padding: 8px 24px; font-size: 13px; cursor: pointer;">
+              Registrar asociado
+            </button>
+            <a href="/reporte1" style="background-color: #ddd; color: black; border: none; border-radius: 6px; padding: 8px 24px; font-size: 13px; text-decoration: none; display: inline-block;">
+              Cancelar
+            </a>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

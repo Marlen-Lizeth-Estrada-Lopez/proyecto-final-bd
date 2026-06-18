@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte 2 - Extracto</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f0f0f0;">
+
+  <div style="display: flex; min-height: 100vh;">
+
+    <!-- BARRA LATERAL -->
+    <div style="
+      width: 140px;
+      background: #e0e0e0;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+      <a href="{{ '/admin' if session.get('rol') == 'administrador' else '/asesor' }}"style="display: block; text-align: center; background: white; border: 1.5px solid #888; border-radius: 6px; padding: 5px 8px; font-size: 13px; text-decoration: none; color: black;">← Volver</a>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div style="flex: 1; padding: 24px 32px;">
+
+      <h2 style="margin: 0 0 20px 0;">Extracto de Cuenta de Ahorro</h2>
+
+      <!-- Formulario de consulta -->
+      <div style="background: white; border: 1px solid #ccc; border-radius: 6px; padding: 20px 24px; margin-bottom: 24px;">
+
+        <form method="POST" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end;">
+
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+            <label>Número de cuenta:</label>
+            <select name="num_cue" style="padding: 5px 8px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;">
+              {% for c in cuentas %}
+              <option value="{{ c[0] }}">{{ c[0] }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+            <label>Fecha inicio:</label>
+            <input type="date" name="fecha_ini" required style="padding: 5px 8px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;" />
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+            <label>Fecha fin:</label>
+            <input type="date" name="fecha_fin" required style="padding: 5px 8px; border: 1px solid #aaa; border-radius: 4px; font-size: 13px;" />
+          </div>
+
+          <button type="submit" style="background-color: #3a9ae8; color: white; border: none; border-radius: 6px; padding: 8px 24px; font-size: 13px; cursor: pointer;">
+            Consultar
+          </button>
+
+        </form>
+
+      </div>
+
+      <!-- Resultados -->
+      {% if movimientos %}
+
+      <div style="border: 1px solid #ccc; border-radius: 6px; overflow: hidden; margin-bottom: 12px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <thead>
+            <tr style="background: #d8d8d8;">
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">N° Transacción</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Fecha</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Hora</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Tipo</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Canal</th>
+              <th style="text-align: left; padding: 8px 12px; font-weight: normal;">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for m in movimientos %}
+            <tr style="border-top: 1px solid #eee; background: {{ '#f9f9f9' if loop.index is odd else 'white' }};">
+              <td style="padding: 8px 12px;">{{ m[0] }}</td>
+              <td style="padding: 8px 12px;">{{ m[1] }}</td>
+              <td style="padding: 8px 12px;">{{ m[2] }}</td>
+              <td style="padding: 8px 12px;">{{ m[3] }}</td>
+              <td style="padding: 8px 12px;">{{ m[4] }}</td>
+              <td style="padding: 8px 12px;">{{ m[5] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <p style="text-align: right; font-size: 14px; font-weight: bold; margin: 0;">
+        Saldo calculado: ${{ saldo }}
+      </p>
+
+      {% endif %}
+
+    </div>
+  </div>
+
+</body>
+</html>
